@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="show the local weather2.0.css">
+</head>
+<body>
+	<div class="main">
+		<div class="mask">
+		 <div class="content">
+			<div id="weaIcon"><img src="../images/weatherIcons/0.png"></div>
+			<div id="weather"><p><span></span> &nbsp; <span></span></p>  <p></p> <p></p> 
+			</div>
+		 </div>
+		 <div class="tips">
+		 	<p id="location">地区：<span></span></p>
+		 	<p>更新时间</p>
+		 </div>
+		</div>
+		<!--一个地图展示小窗口，地图能半透明最好了。去除滚动条
+		<div class="map">
+			<iframe src="#"></iframe>
+		</div> -->
+	</div>
+	<div class="footer"><span>&copy;newjean, </span> </br> <span>the weather api is from <a href="#">somwhere</a> and the location api is from <a href="#">otherwhere</a> </span></div>
+	
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+	
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="show the local weather2.0.js"></script>
+</body>
+</html>
