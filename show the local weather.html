@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="show the local weather.css">
+</head>
+<body>
+	<div class="main">
+	 <div class="mask">
+	      <div class="nowState">	 
+		   	 	<div class="poster">
+		 	     <h3>广州 中国</h3>
+		 	     <div id="content">
+		 		<img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/0.png">
+		 		<p><span></span>℃</p>
+		 		<p>天气</p>
+		 		<p>温度范围</p>
+		 		<p>风向</p>
+		 		<p>经度，维度</p>
+		 		 </div>
+		 	     <p style="margin-top:30px">2017.09.16</p>
+		   		</div>	
+
+		  </div>
+		  <div class="details">
+		  		<input type="text" name="title" value=" Advices in this weather"> <!-- Hourly forecast for today -->
+		  	    <input type="button" name="switchButton" value="suggest"> 
+		  	    <div class="suggest" id="suggest"> 
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    	<p>bulabulabulabulabulabulabulabulabulabulabulabulabula</p>
+		  	    </div>
+		  	    <div class="more" id="more">
+		  	    	<div class="colu"><img src="https://github.com/riversword/images/raw/master/weather/smallweatherIcons/0.png"> <p>天气</p> <p>温度</p> <p>风</p>  <p>时间</p></div> 
+		 			<div class="colu"><img src="https://github.com/riversword/images/raw/master/weather/smallweatherIcons/0.png"> <p>天气</p> <p>温度</p> <p>风</p>  <p>时间</p></div> 
+		 			<div class="colu"><img src="https://github.com/riversword/images/raw/master/weather/smallweatherIcons/0.png"> <p>天气</p> <p>温度</p> <p>风</p>  <p>时间</p></div> 
+		 			<div class="colu"><img src="https://github.com/riversword/images/raw/master/weather/smallweatherIcons/1.png"> <p>天气</p> <p>温度</p> <p>风</p>  <p>时间</p></div> 
+		 			<div class="colu"><img src="https://github.com/riversword/images/raw/master/weather/smallweatherIcons/1.png"> <p>天气</p> <p>温度</p> <p>风</p>  <p>时间</p></div> 
+		  	    </div>
+		  </div>
+		  
+		  <div class="moreForecast">
+		  	
+		  	<div id="day">
+		 	<div class="today weaCollection">
+		 		<p class="dateInfo">today</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/0.png"></div>
+				<div class="weather"><p>温度</p> <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+
+		 	<div class="seconday weaCollection">
+		 		<p class="dateInfo">nextday</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/0.png"></div>
+				<div class="weather"><p>温度</p>  <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+
+		 	<div class="thirday weaCollection">
+		 		<p class="dateInfo">thirday</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/0.png"></div>
+				<div class="weather"><p>温度</p>  <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+		    </div>
+
+		    <div id="night">
+		 	<div class="today weaCollection">
+		 		<p class="dateInfo">today</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/1.png"></div>
+				<div class="weather"><p>温度</p> <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+
+		 	<div class="seconday weaCollection">
+		 		<p class="dateInfo">nextday</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/1.png"></div>
+				<div class="weather"><p>温度</p>  <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+
+		 	<div class="thirday weaCollection">
+		 		<p class="dateInfo">thirday</p>
+				<div class="weaIcon"><img src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/1.png"></div>
+				<div class="weather"><p>温度</p>  <p>天气</p> <p>风向</p> 
+				</div>
+		 	</div>
+		    </div>
+		    <div><input type="button" name="dayNight" value="night"></div>
+		  </div>
+
+	 </div>
+	</div>
+
+	<div class="footer"><span>&copy;newjean, </span> <br> <span>the weather api is from <a href="#">somwhere</a>, and the location api is from <a href="#">otherwhere</a> </span></div>
+	
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="show the local weather.js"></script>
+</body>
+</html>
