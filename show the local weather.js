@@ -127,7 +127,9 @@ function getWeather(keyWords){
         $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
         $('.colu').css("width",coluWid+"px");
        }
-         
+        if(data['HeWeather5']['0']['suggestion'].length !=0 && data['HeWeather5']['0']['hourly_forecast'].length !=0){
+          autoPlay();
+        }  
     },
     error:function(){
       alert("获取天气失败");
@@ -192,4 +194,4 @@ for(var i=0;i<circles.length;i++){
     changeItem();
   }
 }
-autoPlay();
+//autoPlay();
