@@ -3,13 +3,10 @@
 	padding:0;
 }
 body{
-	background-color: rgba(200,200,10,0.8);
+	background-color: rgba(68,164,225,0.8);
 }
 .main{
 	width:100%;
-	/*height:1000px;*/
-	/*background-color: rgba(200,200,10,0.8);*/
-	/*background: rgba(17,27,200,0.1) url("../images/1478778314_13.gif/")  center center no-repeat;*/
 	background-size: cover;
 	font-size: 14px;
 }
@@ -20,23 +17,26 @@ body{
 	background-color:rgba(17,27,37,0.4);
 	position:relative;
 	z-index: 99;
-	/*border: 2px rgba(200,0,0,1) solid;*/
 }
 .nowState{
    /* position:relative;
     left: 0;
     top: 0;*/
-
 }
 .poster{
+	position:absolute;
+	top:0;
+	left:0;
 	width:300px;
 	color:white;
+	/*border:2px rgba(100,200,100,1) solid;*/
 }
 .poster h3{
 	text-align: center;
 	height:40px;
 	line-height: 40px;
-	margin-top: 20px;
+	margin-top: 40px;
+	font-size: 24px;
 }
 #content{
 	width:300px;
@@ -62,125 +62,50 @@ body{
 #content span:nth-child(2){
 	vertical-align: text-bottom;
 }
-.details{
+
+
+.mask .bannerBox{
 	position:absolute;
-	width:570px;
-	/*height:260px;*/
+	width:580px;
+	height:520px;
 	right:0;
 	top:0;
-	/*border: 2px rgba(250,250,250,0.6) solid;*/
-	border: none;
 	z-index: 100;
-	border-left: 2px rgba(250,250,250,0.6) solid;
-	border-bottom: 2px rgba(250,250,250,0.6) solid;
-
+	/*border: 2px rgba(250,250,250,0.6) solid;*/
 }
-.details input[name="title"]{
-	width: 250px;
-	height:25px;
-	line-height: 25px;
+.banner h3{
+	margin-top: 40px;
+	margin-bottom: 40px;
 	text-align: center;
-	background: transparent;
-	border:none;
-	border-bottom: 1px rgba(200,200,200,0.7) solid;
-	outline: medium;    /*除去点击时出现的蓝色边框*/
+	font-size: 26px;
 }
-.details input[name="switchButton"]{
-	width:100px;
-	height:25px;
-	line-height: 25px;
-	background-color: transparent;
-	border:none;
-	border-bottom: 2px rgba(250,250,250,0.6) solid;
-	border-left: 2px rgba(250,250,250,0.6) solid;
-	float: right;
-	outline: medium;
-	box-shadow: -5px 5px 5px rgba(17,27,37,0.4);
-
-}
-.details input[name="switchButton"]:hover{
-	background-color: rgba(0,200,250,0.8);
-}
-.details .suggest{
-	display:none;
-}
-.details .suggest p{
-   	margin-top: 10px;
-   	text-indent: 1em;
-   	margin-left: 5px;
-}
-.details .more{
-	/*display:none;*/
-}
-.details .more .colu{
-	float:left;
-	width:110px;
-	height:210px;
-	text-align: center;
-	/*border: 1px rgba(0,0,255,1) solid;*/
-	border-left: 1px rgba(200,200,200,0.7) solid;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-.details .more .colu:first-child{
-	margin-left: 5px;
-	border-left: none;
-}
-.details .more .colu p{
-	height:20px;
-	line-height: 20px;
-	margin-bottom: 10px;
-}
-#night{
-	display: none;
-}
-.mask .moreForecast{
-	position:absolute;
-	width:570px;
+.moreForecast{
+	width:580px;
+	height:520px;
 	right:0;
-	bottom:0;
-	z-index: 100;
-	/*border: 2px rgba(250,250,250,0.6) solid;*/
-	border: none;
-	border-left: 2px rgba(250,250,250,0.6) solid;
-	border-top: 2px rgba(250,250,250,0.6) solid;
-}
-.moreForecast div input[name="dayNight"]{
-	float:right;
-	width:100px;
-	height:25px;
-	border:none;
-	border-left: 2px rgba(250,250,250,0.6) solid;
-	border-top: 2px rgba(250,250,250,0.6) solid;
-	background-color: transparent;
-	outline: medium;
-	box-shadow: -5px -5px 5px rgba(17,27,37,0.4);
-
-}
-.moreForecast div input[name="dayNight"]:hover{
-	background-color: rgba(0,200,250,0.8);
+	top:0;
+	/*border: 1px rgba(0,250,250,0.6) solid;*/
+	color:rgba(250,250,250,0.8);
 }
 
 .weaCollection{
     width: 186px;
     float:left;
-    margin-top: 10px;
-    border-left: 1px rgba(200,200,200,0.7) solid;
+    /*border: 1px rgba(200,200,0,0.7) solid;*/
     text-align: center;
+    font-size: 18px;
 }
 .today{
-    margin-left: 3px;
-    border-left:none;
-   
+    margin-left: 7px;
+   /* border-left:none;*/
 }
 .weaCollection p{
 	height:20px;
-	line-height: 20px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 p.dateInfo{
-	margin-bottom: 0px;
-	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-top: 20px;
 }
 .weaIcon img{
 	width:150px;
@@ -192,6 +117,100 @@ p.dateInfo{
 	text-align: center;
 }
 
+.suggest{
+	display:none;
+	color:rgba(250,250,250,0.8);
+	height:500px;
+	width:500px;
+	margin:auto;
+	/*border: 2px rgba(250,250,0,0.6) solid;*/
+}
+.suggest p{
+   	margin-top: 20px;
+   	text-indent: 1em;
+   	margin-left: 10px;
+   	margin-right: 10px;
+   	font-size: 16px;
+}
+.suggest p:hover{
+   color:rgba(255,255,255,1);
+}
+.suggest p:first-child{
+   	margin-top: 40px;
+   	
+}
+.hourlyForecast{
+	display:none;
+	height:500px;
+	/*border: 2px rgba(250,0,255,1) solid;*/
+	color:rgba(250,250,250,0.8);
+}
+.coluCover{
+	/*border: 2px rgba(250,250,0,1) solid;*/
+	text-align: center;
+}
+.colu{
+	/*float:left;*/
+	width:102px;
+	text-align: center;
+	/*border: 1px rgba(0,0,255,1) solid;*/
+	display: inline-block;
+	margin:0;
+	font-size: 16px;
+}
+.culu img{
+	width:100px;
+}
+.colu p{
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+div.qiehuan{
+	width:15px;
+	height:30px;
+}
+#pre{
+	position:absolute;
+	top:200px;
+	left:0;
+	z-index: 110;
+	background: url('https://github.com/riversword/images/raw/master/icon/tools/arrow.png') no-repeat center center;
+	opacity:0.2;
+	transform: rotate(180deg);           
+    -webkit-transform: rotate(180deg);      /* Safari and Chrome */
+}
+#nex{
+	position:absolute;
+	top:200px;
+	right:10px;
+	z-index: 110;
+	background: url('https://github.com/riversword/images/raw/master/icon/tools/arrow.png') no-repeat center center;
+	opacity:0.2;
+}
+#pre:hover,#nex:hover{
+	background-color: rgba(57,67,77,0.6);
+	opacity:0.6;
+}
+.circleGroup{
+	position: absolute;
+	height:12px;
+	right:50%;
+	top:500px;
+	margin-right: -28px;
+}
+.circleGroup div{
+	display: inline-block;
+	width:5px;
+	height:5px;
+	border: 2px rgba(250,250,250,0.3) solid;
+	border-radius: 5px;
+	margin-right: 5px;
+	background-color: rgba(157,167,177,0.1);
+}
+.circleGroup div:hover{
+	cursor: pointer;
+}
+
 .footer{
 	width:100%;
 	height:60px;
@@ -200,5 +219,7 @@ p.dateInfo{
     font-family: Georgia,Times ;
     font-size: 14px;
     /*background-color: rgba(7,80,200,0.8);*/
-
+}
+.footer a{
+	text-decoration: none;
 }
