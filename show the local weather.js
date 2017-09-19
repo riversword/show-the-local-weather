@@ -117,17 +117,22 @@ function getWeather(keyWords){
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
         $('.weaIcon img').eq(i).attr("src", "https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+dailyPicture);
        }
-      $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
-      
+
+      if(data['HeWeather5']['0']['suggestion'].length !=0){
+        $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
+      }else{$('.suggest').eq(0).append("<p>sorry, there is no information about this region.</p>");}
+       
        var lenHour=data['HeWeather5']['0']['hourly_forecast'].length,
            coluWid=Math.floor(510/lenHour);
-       for(var i=0;i<lenHour;i++){
-        $('.coluCover').eq(0).append("<div class='colu'><img><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['sc']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+"</p></div>");
-        var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
-        $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
-        $('.colu').css("width",coluWid+"px");
-       }
-        if(data['HeWeather5']['0']['suggestion'].length !=0 && data['HeWeather5']['0']['hourly_forecast'].length !=0){
+       if(lenHour !=0){
+        for(var i=0;i<lenHour;i++){
+          $('.coluCover').eq(0).append("<div class='colu'><img><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['sc']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+"</p></div>");
+          var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
+          $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
+          $('.colu').css("width",coluWid+"px");
+        }
+       }else{$('.coluCover').eq(0).append("<p>sorry, there is no information about this region.</p>")}
+       if(data['HeWeather5']['0']['suggestion'].length !=0 && data['HeWeather5']['0']['hourly_forecast'].length !=0){
           autoPlay();
         }  
     },
