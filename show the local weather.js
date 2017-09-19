@@ -113,28 +113,24 @@ function getWeather(keyWords){
       
       for(var i=0;i<3;i++){
         $('.dateInfo').eq(i).html(data['HeWeather5']['0']['daily_forecast'][i]['date'].slice(5));
-        $('.weather').html("<p>"+data['HeWeather5']['0']['daily_forecast'][i]['tmp']['min']+"~"+data['HeWeather5']['0']['daily_forecast']['0']['tmp']['max']+"℃</p><p>日:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_d']+"</p><p>夜:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_n']+"</p><p>"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['sc']+"</p>");
+        $('.weather').eq(i).html("<p>"+data['HeWeather5']['0']['daily_forecast'][i]['tmp']['min']+"~"+data['HeWeather5']['0']['daily_forecast'][i]['tmp']['max']+"℃</p><p>日:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_d']+"</p><p>夜:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_n']+"</p><p>"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['sc']+"</p>");
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
         $('.weaIcon img').eq(i).attr("src", "https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+dailyPicture);
        }
-
-      if(data['HeWeather5']['0']['suggestion'].length !=0){
-        $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
-      }else{$('.suggest').eq(0).append("<p>sorry, there is no information about this region.</p>");}
+     if(data['HeWeather5']['0']['suggestion'].length != 0){
+      $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
+      }else $('.suggest').eq(0).append("<p>sorry, there is no information about this religion.</p>");
        
-       var lenHour=data['HeWeather5']['0']['hourly_forecast'].length,
+      var lenHour=data['HeWeather5']['0']['hourly_forecast'].length,
            coluWid=Math.floor(510/lenHour);
-       if(lenHour !=0){
-        for(var i=0;i<lenHour;i++){
-          $('.coluCover').eq(0).append("<div class='colu'><img><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['sc']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+"</p></div>");
-          var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
-          $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
-          $('.colu').css("width",coluWid+"px");
-        }
-       }else{$('.coluCover').eq(0).append("<p>sorry, there is no information about this region.</p>")}
-       if(data['HeWeather5']['0']['suggestion'].length !=0 && data['HeWeather5']['0']['hourly_forecast'].length !=0){
-          autoPlay();
-        }  
+      if(lenHour !=0){
+       for(var i=0;i<lenHour;i++){
+        $('.coluCover').eq(0).append("<div class='colu'><img><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['sc']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+"</p></div>");
+        var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
+        $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
+        $('.colu').css("width",coluWid+"px");
+       }
+      } else  $('.coluCover').eq(0).append("<p>sorry, there is no information about this religion at the time.</p>");
     },
     error:function(){
       alert("获取天气失败");
@@ -199,4 +195,4 @@ for(var i=0;i<circles.length;i++){
     changeItem();
   }
 }
-//autoPlay();
+autoPlay();
