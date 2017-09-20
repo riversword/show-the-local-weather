@@ -23,7 +23,6 @@ function showPosition(position){
   lat=position.coords.latitude;
   lon=position.coords.longitude;
   var positionInfo=lon +','+ lat;
-  console.log("byHTML5 lon,lat:"+positionInfo);
   getWeather(positionInfo);
 }
 function showByIp(){
@@ -117,13 +116,13 @@ function getWeather(keyWords){
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
         $('.weaIcon img').eq(i).attr("src", "https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+dailyPicture);
        }
-       console.log(data['HeWeather5']['0']['suggestion']);
-     if(data['HeWeather5']['0']['suggestion'].length != 0){
+       
+     if(!!data['HeWeather5']['0']['suggestion']){
       $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
       }else $('.suggest').eq(0).append("<p>sorry, there is no information about this religion.</p>");
        
       
-      if(data['HeWeather5']['0']['hourly_forecast']){
+      if(!!data['HeWeather5']['0']['hourly_forecast'] && data['HeWeather5']['0']['hourly_forecast'].length !=0){
         var lenHour=data['HeWeather5']['0']['hourly_forecast'].length,
            coluWid=Math.floor(510/lenHour);
        for(var i=0;i<lenHour;i++){
@@ -134,9 +133,6 @@ function getWeather(keyWords){
        }
       } else  $('.coluCover').eq(0).append("<p>sorry, there is no information about this religion at the time.</p>");
       
-      if(data['HeWeather5']['0']['suggestion'] && data['HeWeather5']['0']['hourly_forecast']){
-        autoPlay();
-      }
     },
     error:function(){
       alert("获取天气失败");
@@ -176,8 +172,7 @@ function changeItem(){
 function stopPlay(){
   clearInterval(timer);
 }
-$('div.bannerBox').mouseenter(stopPlay);
-$('div.bannerBox').mouseleave(autoPlay);
+
 $('#pre').click(function(){  //为何第一次点击无效
   if(j==0){
     j=banLen-1
@@ -201,4 +196,11 @@ for(var i=0;i<circles.length;i++){
     changeItem();
   }
 }
+
+if(!!$('.suggest p:eq(0)') && !!$('div.colu:eq(0)')){
+  autoPlay();
+  $('div.bannerBox').mouseenter(stopPlay);
+  $('div.bannerBox').mouseleave(autoPlay);
+}
+
 
