@@ -1,7 +1,7 @@
 //使用的API为和风天气
 var lat,lon;
 var banners=$(' div.banner'),  //用于轮播
-  circles=$('.circleGroup div')
+  circles=$('.circleGroup div'),
   banLen=banners.length,
   j=0,
   timer=null;
@@ -14,8 +14,8 @@ function getLocation(){
    else{
     //获取IP地址
      console.log("浏览器不支持获取地理位置");
-    var myId=returnCitySN["cid"];
-    getWeather(myId);
+    var myIp=returnCitySN["cip"];
+    getWeather(myIp);
    }
   }
 
@@ -30,59 +30,43 @@ function showByIp(){
   getWeather(myIp);
 }
 //判断使用什么天气图标
+//Unreachable 'break' after 'return'.
 function weatherPicture(codeNum){
   switch(codeNum){
       case '100':
       return '0.png';
-      break;
       case '101':
       return '4.png';
-      break;
       case '102':
       return '7.png';
-      break;
       case '103':
       return '5.png';
-      break;
       case '104':
       return '9.png';
-      break;
       case '200':case '202':case '203':case '204':case '205':case '206':case '207':case '208':case '209':case '210':case '211':case '212':case '213':
       return '32.png';
-      break;
       case '201':
       return '9.png';
-      break;
       case '300':case '305':case '309':
       return '10.png';
-      break;
       case '301':case '306':
       return '14.png';
-      break;
       case '302':case '303':case '304':
       return '16.png';
-      break;
       case '307':case '308':case '310':case '311':case '312':
       return '15.png';
-      break;
       case '313':case '404':case '405':case '406':
       return '12.png';
-      break;
       case '400':case '407':
       return '21.png';
-      break;
       case '401':case '402':case '403':
       return '23.png';
-      break;
       case '500':case '501':
       return '31.png';
-      break;
       case '502':
       return '30.png';
-      break;
       case '503':case '504':case '507':case '508':
       return '26.png';
-      break;
     default:
     return '99.png';
   }

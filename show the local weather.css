@@ -18,11 +18,7 @@ body{
 	position:relative;
 	z-index: 99;
 }
-.nowState{
-   /* position:relative;
-    left: 0;
-    top: 0;*/
-}
+
 .poster{
 	position:absolute;
 	top:0;
@@ -103,7 +99,8 @@ body{
 	height:20px;
 	margin-bottom: 20px;
 }
-p.dateInfo{
+/*Element (p.dateInfo) is overqualified, just use .dateInfo without element name.*/ 
+.dateInfo{
 	margin-bottom: 10px;
 	margin-top: 20px;
 }
@@ -165,7 +162,8 @@ p.dateInfo{
 	margin-top: 20px;
 	margin-bottom: 30px;
 }
-div.qiehuan{
+/*Element (div.qiehuan) is overqualified, just use .qiehuan without element name.*/ 
+.qiehuan{
 	width:15px;
 	height:30px;
 }
