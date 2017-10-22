@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="show the local weather.css">
+</head>
+<body>
+	<div class="main">
+		<div class="container-fluid header">
+			<div class="location">
+			   <div class="row">
+				<p class="col-xs-6 text-left">longitude,latitude</p>  
+				<p class="col-xs-6 text-right">country</p>
+			   </div>
+			   <h3 class="text-center">city</h3>
+			</div>
+			<div class="weather">
+				<h4 class="text-center">weather</h4>
+				<div class="row">
+				<div class="col-xs-6 text-center weaIcon">
+					<img class="img-responsive" src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/99.png">
+				</div>
+				<div class="col-xs-6 text-center tempInfo">
+					<p class="text-center">N~N℃</p>
+					<h1 class="text-center">N<span>℃</span></h1>
+				</div>
+			    </div>
+			</div>
+			<div class="row bottomInfo">
+				<p class="col-xs-6 text-center">wind</p> <p class="col-xs-6 text-center">update time</p>
+			</div>
+		</div>
+
+		<div class="container-fluid hourForecast">
+		  <h4 class="text-left">Hours</h4>
+		</div>
+
+		<div class="container-fluid dayForecast">
+			<h4 class="text-left">Days</h4>
+			<div class="row dayInfo">
+				<div class="col-xs-4 day">
+					<!-- <h5 class="text-center">10-21</h5> 
+					<p class="text-center">晴转多云</p>
+					<div class="text-center">
+						<img src="../images/smallweatherIcons/0.png">
+					</div>
+					<p class="text-center">23℃</p>
+					<p class="text-center">微风无持续风向</p> -->
+				</div>
+				<div class="col-xs-4 day">
+					<!-- <h5 class="text-center">10-22</h5> 
+					<p class="text-center">晴转多云</p>
+					<div class="text-center">
+						<img src="../images/smallweatherIcons/0.png">
+					</div>
+					<p class="text-center">23℃</p>
+					<p class="text-center">微风无持续风向</p> -->
+				</div>
+				<div class="col-xs-4 day">
+					<!-- <h5 class="text-center">10-23</h5> 
+					<p class="text-center">晴转多云</p>
+					<div class="text-center">
+						<img src="../images/smallweatherIcons/0.png">
+					</div>
+					<p class="text-center">23℃</p>
+					<p class="text-center">微风无持续风向</p> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h1 class="cover text-center">Reading...</h1>
+
+	<div class="footer"><span>Copyright &copy;2017&nbsp;riversword.&nbsp;All rights reserved. </span> <br> <span>The data is from <a href="https://www.heweather.com" >heweather</a>.  </span></div>
+	
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="show the local weather.js"></script>
+</body>
+</html>
