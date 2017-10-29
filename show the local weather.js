@@ -1,36 +1,37 @@
-//使用的API为和风天气
-var lat,lon;
-var banners=$(' div.banner'),  //用于轮播
-  circles=$('.circleGroup div'),
-  banLen=banners.length,
-  j=0,
-  timer=null;
+/*code by riversword
+api is hefeng*/
 
-//通过HTML5获取地理位置
+$(document).ready(function(){
+  var lat,lon;
+  getLocation();
+
+//get location information
 function getLocation(){
-  if(navigator.geolocation){
-     navigator.geolocation.getCurrentPosition(showPosition,showByIp);
-  }//测试发现会出现判断超时，既不执行true下的语句，也不执行false下的语句。
-   else{
-    //获取IP地址
-     console.log("浏览器不支持获取地理位置");
+  if(navigator.geolocation){ 
+    //get the location by HTML5
+    navigator.geolocation.getCurrentPosition(showPosition,showByIp);
+  }else{
+    //get IP address by sohu api
     var myIp=returnCitySN["cip"];
     getWeather(myIp);
    }
   }
-
+  
+//get weather information by longitude & latitude
 function showPosition(position){
   lat=position.coords.latitude;
   lon=position.coords.longitude;
   var positionInfo=lon +','+ lat;
   getWeather(positionInfo);
 }
+
+//get weather information by IP
 function showByIp(){
   myIp=returnCitySN["cip"];
   getWeather(myIp);
 }
-//判断使用什么天气图标
-//Unreachable 'break' after 'return'.
+
+//choose one icon to describe the weather
 function weatherPicture(codeNum){
   switch(codeNum){
       case '100':
@@ -71,59 +72,73 @@ function weatherPicture(codeNum){
     return '99.png';
   }
 }
-//获取天气信息
+
+//get the weather information
 function getWeather(keyWords){
   var apiUrl="https://free-api.heweather.com/v5/weather?city="+keyWords+'&key=45f089df10e64f3591d88f0a2c6c7dc5';
   $.ajax({
     url:apiUrl,
     type:"get",
     success: function(data){
-
-      //选择器加eq()将jq模式转换为js模式，直接用id选择器也无法对元素进行设置
-      $('#content p:eq(1)').html(data['HeWeather5']['0']['now']['cond']['txt']);
+      $('.weather h4').html(data['HeWeather5']['0']['now']['cond']['txt']);
       var nowPicture=weatherPicture(data['HeWeather5']['0']['now']['cond']['code']);
-      $('#content img').attr("src","https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+nowPicture);
-      $('#content p:eq(0) span:eq(0)').html(data['HeWeather5']['0']['now']['tmp']);
-      $('#content p:eq(3)').html(data['HeWeather5']['0']['now']['wind']['dir']+ '&nbsp;' +data['HeWeather5']['0']['now']['wind']['sc']);
+      $('.weather .weaIcon img').attr("src","https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+nowPicture);
+      $('.weather .tempInfo h1').html(data['HeWeather5']['0']['now']['tmp'] +"<span>℃</span>");
+      $('.weather .tempInfo p').html(data['HeWeather5']['0']['daily_forecast']['0']['tmp']['min']+"~"+data['HeWeather5']['0']['daily_forecast']['0']['tmp']['max']+'℃');
+
       lon=data['HeWeather5']['0']['basic']['lon'];
       lat=data['HeWeather5']['0']['basic']['lat'];
       lon=dealNum(lon);
       lat=dealNum(lat);
-      $('#content p:eq(4)').html("经&nbsp;"+lon+'，'+"纬&nbsp"+lat);
-      $('.poster h3').eq(0).html(data['HeWeather5']['0']['basic']['city'] + '&nbsp;' + data['HeWeather5']['0']['basic']['cnty']);
-      $('.poster p').eq(5).html("更新: "+data['HeWeather5']['0']['basic']['update']['loc']);
-      $('#content p:eq(2)').html(data['HeWeather5']['0']['daily_forecast']['0']['tmp']['min']+"~"+data['HeWeather5']['0']['daily_forecast']['0']['tmp']['max']+'℃');
+      $('.location .row p:eq(0)').html("lon &nbsp;"+lon+'，'+"lat &nbsp"+lat);
+      $('.location .row p:eq(1)').html(data['HeWeather5']['0']['basic']['cnty']);
+      $('.location h3').html(data['HeWeather5']['0']['basic']['city']);
+      $('.bottomInfo p:eq(0)').html(data['HeWeather5']['0']['now']['wind']['dir']+ '&nbsp;' +data['HeWeather5']['0']['now']['wind']['sc']);
+      $('.bottomInfo p').eq(1).html("update: "+data['HeWeather5']['0']['basic']['update']['loc']);
       
+      //add daily forecast information to html
       for(var i=0;i<3;i++){
-        $('.dateInfo').eq(i).html(data['HeWeather5']['0']['daily_forecast'][i]['date'].slice(5));
-        $('.weather').eq(i).html("<p>"+data['HeWeather5']['0']['daily_forecast'][i]['tmp']['min']+"~"+data['HeWeather5']['0']['daily_forecast'][i]['tmp']['max']+"℃</p><p>日:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_d']+"</p><p>夜:"+data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_n']+"</p><p>"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['daily_forecast'][i]['wind']['sc']+"</p>");
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
-        $('.weaIcon img').eq(i).attr("src", "https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+dailyPicture);
-       }
+        $('.dayInfo .day').eq(i).html('<h5 class="text-center">'+data['HeWeather5']['0']['daily_forecast'][i]['date'].slice(5)+'</h5>');
+        $('.dayInfo .day').eq(i).append("<p class='text-center'>"+
+          data['HeWeather5']['0']['daily_forecast'][i]['cond']['txt_d']+"</p><div class='text-center'><img src='https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+
+          dailyPicture+"'><p class='text-center'>"+
+          data['HeWeather5']['0']['daily_forecast'][i]['tmp']['min']+"~"+
+          data['HeWeather5']['0']['daily_forecast'][i]['tmp']['max']+"℃</p><p class='text-center'>"+
+          data['HeWeather5']['0']['daily_forecast'][i]['wind']['dir']+"&nbsp;"+
+          data['HeWeather5']['0']['daily_forecast'][i]['wind']['sc']+
+          "</p>");
+      }
        
-     if(!!data['HeWeather5']['0']['suggestion']){
-      $('.suggest').eq(0).append("<p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p>");
-      }else $('.suggest').eq(0).append("<p>sorry, there is no information about this religion.</p>");
+      //when the weather information finishes loading, hide "Reading"
+      $('.cover').css('display','none');
        
-      
+      //add the hourly forecast information to html     
       if(!!data['HeWeather5']['0']['hourly_forecast'] && data['HeWeather5']['0']['hourly_forecast'].length !=0){
-        var lenHour=data['HeWeather5']['0']['hourly_forecast'].length,
-           coluWid=Math.floor(510/lenHour);
-       for(var i=0;i<lenHour;i++){
-        $('.coluCover').eq(0).append("<div class='colu'><img><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['dir']+"&nbsp;"+data['HeWeather5']['0']['hourly_forecast'][i]['wind']['sc']+"</p><p>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+"</p></div>");
-        var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
-        $('.colu img').eq(i).attr("src","https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture);
-        $('.colu').css("width",coluWid+"px");
-       }
-      } else  $('.coluCover').eq(0).append("<p>sorry, there is no information about this religion at the time.</p>");
+        var lenHour=data['HeWeather5']['0']['hourly_forecast'].length;
+        $('.hourForecast').css('display','block');
+        for(var i=0;i<lenHour;i++){
+          var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
+          $('.hourForecast').append("<div class='row hourInfo'><p class='col-xs-2 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+
+          "</p><p class='col-xs-4 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><div class='col-xs-4 text-center pic'><img src='https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture+"'></div><p class='col-xs-2 text-center'>"+
+          +data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p>");
+        }
+      }
+
+      //add the suggestion information for the weather to html
+      if(!!data['HeWeather5']['0']['suggestion']){
+        $('.main').append("<div class='container-fluid suggest'><h4>Suggest</h4><p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p></div>");
+      }
       
     },
     error:function(){
+      $('.cover').css('display','none');
       alert("获取天气失败");
     }
   });
 }
-//保留两位小数，处理经纬度
+
+//retain two decimal places for lat & lon
 function dealNum(x){
    var a=x.toString();
    var b=a.indexOf('.');
@@ -132,59 +147,5 @@ function dealNum(x){
    }else return x;
 }
 
-getLocation();
-
-//实现轮播
-function autoPlay(){
-  timer=setInterval(function(){
-    changeItem();
-    j++;
-  },4000);
-
-}
-function changeItem(){
-  if(j>banLen-1){
-    j=0;
-  }
-  for(var i=0;i<banLen;i++){
-    banners[i].style.display="none";
-    circles.eq(i).css("background-color","rgba(117,127,137,0.3)");
-  }
-  banners[j].style.display="block";
-  circles.eq(j).css("background-color","rgba(250,250,250,0.6)");;
-}
-function stopPlay(){
-  clearInterval(timer);
-}
-
-$('#pre').click(function(){  //为何第一次点击无效
-  if(j==0){
-    j=banLen-1
-  }else{
-    --j;
-  }
-  changeItem();
 });
-$('#nex').click(function(){
-  if(j==banLen-1){
-    j=0;
-  }else{
-    ++j;
-  }
-  changeItem();
-});
-for(var i=0;i<circles.length;i++){
-  circles[i].id=i;
-  circles[i].onclick=function(){
-    j=this.id;
-    changeItem();
-  }
-}
-
-if(!!$('.suggest p:eq(0)') && !!$('div.colu:eq(0)')){
-  autoPlay();
-  $('div.bannerBox').mouseenter(stopPlay);
-  $('div.bannerBox').mouseleave(autoPlay);
-}
-
 

@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="show the local weather.css">
+<title>show the local weather</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<link rel="stylesheet" href="show the local weather.css">
 </head>
 <body>
 	<div class="main">
-	 <div class="mask">
-	      <div class="nowState">	 
-		   	 	<div class="poster">
-		 	     <h3>城市 中国</h3>
-		 	     <div id="content">
-		 		<img src="#" alt="weather">
-		 		<p><span></span>℃</p>
-		 		<p>天气</p>
-		 		<p>温度范围</p>
-		 		<p>风向</p>
-		 		<p>经度，维度</p>
-		 		 </div>
-		 	     <p style="margin-top:30px">2017.09.16</p>
-		   		</div>	
-		  </div>
-		 <div class="bannerBox">
-		  <div class="moreForecast banner">	
-		  	<h3>3日天气预报</h3>
-		 	<div class="today weaCollection">
-		 		<p class="dateInfo">今天</p>
-				<div class="weaIcon"><img src="#" alt="weather"></div>
-				<div class="weather"><p>温度</p> <p>白天天气</p><p>夜间天气</p> <p>风向</p> 
+		<div class="container-fluid header">
+			<div class="location">
+			   <div class="row">
+				<p class="col-xs-6 text-left">longitude,latitude</p>  
+				<p class="col-xs-6 text-right">country</p>
+			   </div>
+			   <h3 class="text-center">city</h3>
+			</div>
+			<div class="weather">
+			  <h4 class="text-center">weather</h4>
+			  <div class="row">
+				<div class="col-xs-6 text-center weaIcon">
+					<img class="img-responsive" src="https://github.com/riversword/images/raw/master/weather/bigweatherIcons/99.png">
 				</div>
-		 	</div>
-		 	<div class="weaCollection">
-		 		<p class="dateInfo">明天</p>
-				<div class="weaIcon"><img src="#" alt="weather"></div>
-				<div class="weather"><p>温度</p>  <p>白天天气</p><p>夜间天气</p> <p>风向</p> 
+				<div class="col-xs-6 text-center tempInfo">
+					<p class="text-center">N~N℃</p>
+					<h1 class="text-center">N<span>℃</span></h1>
 				</div>
-		 	</div>
-		 	<div class="weaCollection">
-		 		<p class="dateInfo">后天</p>
-				<div class="weaIcon"><img src="#" alt="weather"></div>
-				<div class="weather"><p>温度</p>  <p>白天天气</p><p>夜间天气</p> <p>风向</p> 
-				</div>
-		 	</div>
-		  </div>
-		  
-		  <div class="suggest banner"><!--  p标签中的英文不会自动换行 -->
-		  	   <h3>生活指数</h3>
-		  </div>
-		  <div class="hourlyForecast banner">
-		  	   <h3>今日小时天气预报</h3>
-		  	   <div class="coluCover">
-		 	   </div>
-		  </div>
-		  <div class="qiehuan" id="pre"></div><div class="qiehuan" id="nex"></div>
-		  <div class="circleGroup"><div></div> <div></div> <div></div></div>
+			  </div>
+			</div>
+			<div class="row bottomInfo">
+				<p class="col-xs-6 text-center">wind</p> 
+				<p class="col-xs-6 text-center">update time</p>
+			</div>
 		</div>
-	 </div>
+
+		<div class="container-fluid hourForecast">
+		  <h4 class="text-left">Hours</h4>
+		</div>
+
+		<div class="container-fluid dayForecast">
+			<h4 class="text-left">Days</h4>
+			<div class="row dayInfo">
+
+				<div class="col-xs-4 day">
+				</div>
+
+				<div class="col-xs-4 day">
+				</div>
+
+				<div class="col-xs-4 day">
+				</div>
+
+			</div>
+		</div>
 	</div>
 
-	<div class="footer"><span>Copyright &copy;2017&nbsp;riversword.&nbsp;All rights reserved. </span> <br> <span>The data is from <a href="https://www.heweather.com" >heweather</a>.  </span></div>
+	<h1 class="cover text-center">Reading...</h1>
+
+	<div class="footer">
+		<span>Copyright &copy;2017&nbsp;riversword.&nbsp;All rights reserved. </span> 
+		<br> 
+		<span>The data is from <a href="https://www.heweather.com" >heweather</a>.  </span>
+	</div>
 	
 	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
