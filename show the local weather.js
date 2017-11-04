@@ -5,19 +5,19 @@ $(document).ready(function(){
   var lat,lon;
   getLocation();
 
-//get location information
+//获取地理位置
 function getLocation(){
   if(navigator.geolocation){ 
-    //get the location by HTML5
+    //通过HTML5获取地理位置
     navigator.geolocation.getCurrentPosition(showPosition,showByIp);
   }else{
-    //get IP address by sohu api
+    //通过搜狐api获取IP位置
     var myIp=returnCitySN["cip"];
     getWeather(myIp);
    }
   }
   
-//get weather information by longitude & latitude
+//通过经纬度获取天气信息
 function showPosition(position){
   lat=position.coords.latitude;
   lon=position.coords.longitude;
@@ -25,13 +25,13 @@ function showPosition(position){
   getWeather(positionInfo);
 }
 
-//get weather information by IP
+//通过IP地址获取天气信息
 function showByIp(){
   myIp=returnCitySN["cip"];
   getWeather(myIp);
 }
 
-//choose one icon to describe the weather
+//选择描述天气的小图标
 function weatherPicture(codeNum){
   switch(codeNum){
       case '100':
@@ -73,7 +73,7 @@ function weatherPicture(codeNum){
   }
 }
 
-//get the weather information
+//获取天气信息
 function getWeather(keyWords){
   var apiUrl="https://free-api.heweather.com/v5/weather?city="+keyWords+'&key=45f089df10e64f3591d88f0a2c6c7dc5';
   $.ajax({
@@ -96,7 +96,7 @@ function getWeather(keyWords){
       $('.bottomInfo p:eq(0)').html(data['HeWeather5']['0']['now']['wind']['dir']+ '&nbsp;' +data['HeWeather5']['0']['now']['wind']['sc']);
       $('.bottomInfo p').eq(1).html("update: "+data['HeWeather5']['0']['basic']['update']['loc']);
       
-      //add daily forecast information to html
+      //添加3日天气预报信息到html
       for(var i=0;i<3;i++){
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
         $('.dayInfo .day').eq(i).html('<h5 class="text-center">'+data['HeWeather5']['0']['daily_forecast'][i]['date'].slice(5)+'</h5>');
@@ -110,10 +110,10 @@ function getWeather(keyWords){
           "</p>");
       }
        
-      //when the weather information finishes loading, hide "Reading"
+      //当天气信息加载出来时，隐藏reading字样
       $('.cover').css('display','none');
        
-      //add the hourly forecast information to html     
+      //添加小时天气预报到html     
       if(!!data['HeWeather5']['0']['hourly_forecast'] && data['HeWeather5']['0']['hourly_forecast'].length !=0){
         var lenHour=data['HeWeather5']['0']['hourly_forecast'].length;
         $('.hourForecast').css('display','block');
@@ -125,7 +125,7 @@ function getWeather(keyWords){
         }
       }
 
-      //add the suggestion information for the weather to html
+      //添加天气建议信息到html
       if(!!data['HeWeather5']['0']['suggestion']){
         $('.main').append("<div class='container-fluid suggest'><h4>Suggest</h4><p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p></div>");
       }
@@ -138,7 +138,7 @@ function getWeather(keyWords){
   });
 }
 
-//retain two decimal places for lat & lon
+//将经纬度数字保留两位小数
 function dealNum(x){
    var a=x.toString();
    var b=a.indexOf('.');
