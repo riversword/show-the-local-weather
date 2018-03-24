@@ -2,36 +2,35 @@
 api is hefeng*/
 
 $(document).ready(function(){
-  var lat,lon;
-  getLocation();
+var lat,lon;
 
-//获取地理位置
+getLocation();
+
+//通过HTML5获取地理位置
 function getLocation(){
-  if(navigator.geolocation){ 
-    //通过HTML5获取地理位置
-    navigator.geolocation.getCurrentPosition(showPosition,showByIp);
-  }else{
-    //通过搜狐api获取IP位置
+  if(navigator.geolocation){
+     navigator.geolocation.getCurrentPosition(showPosition,showByIp);
+  }//测试发现会出现判断超时，既不执行true下的语句，也不执行false下的语句。
+   else{
+    //获取IP地址
+     console.log("浏览器不支持获取地理位置");
     var myIp=returnCitySN["cip"];
     getWeather(myIp);
    }
   }
-  
-//通过经纬度获取天气信息
+
 function showPosition(position){
   lat=position.coords.latitude;
   lon=position.coords.longitude;
   var positionInfo=lon +','+ lat;
   getWeather(positionInfo);
 }
-
-//通过IP地址获取天气信息
 function showByIp(){
   myIp=returnCitySN["cip"];
   getWeather(myIp);
 }
-
-//选择描述天气的小图标
+//判断使用什么天气图标
+//Unreachable 'break' after 'return'.
 function weatherPicture(codeNum){
   switch(codeNum){
       case '100':
@@ -72,7 +71,6 @@ function weatherPicture(codeNum){
     return '99.png';
   }
 }
-
 //获取天气信息
 function getWeather(keyWords){
   var apiUrl="https://free-api.heweather.com/v5/weather?city="+keyWords+'&key=45f089df10e64f3591d88f0a2c6c7dc5';
@@ -80,6 +78,7 @@ function getWeather(keyWords){
     url:apiUrl,
     type:"get",
     success: function(data){
+      //选择器加eq()将jq模式转换为js模式，直接用id选择器也无法对元素进行设置
       $('.weather h4').html(data['HeWeather5']['0']['now']['cond']['txt']);
       var nowPicture=weatherPicture(data['HeWeather5']['0']['now']['cond']['code']);
       $('.weather .weaIcon img').attr("src","https://github.com/riversword/images/raw/master/weather/bigweatherIcons/"+nowPicture);
@@ -96,7 +95,6 @@ function getWeather(keyWords){
       $('.bottomInfo p:eq(0)').html(data['HeWeather5']['0']['now']['wind']['dir']+ '&nbsp;' +data['HeWeather5']['0']['now']['wind']['sc']);
       $('.bottomInfo p').eq(1).html("update: "+data['HeWeather5']['0']['basic']['update']['loc']);
       
-      //添加3日天气预报信息到html
       for(var i=0;i<3;i++){
         var dailyPicture=weatherPicture(data['HeWeather5']['0']['daily_forecast'][i]['cond']['code_d']);
         $('.dayInfo .day').eq(i).html('<h5 class="text-center">'+data['HeWeather5']['0']['daily_forecast'][i]['date'].slice(5)+'</h5>');
@@ -108,26 +106,26 @@ function getWeather(keyWords){
           data['HeWeather5']['0']['daily_forecast'][i]['wind']['dir']+"&nbsp;"+
           data['HeWeather5']['0']['daily_forecast'][i]['wind']['sc']+
           "</p>");
-      }
+       }
        
-      //当天气信息加载出来时，隐藏reading字样
-      $('.cover').css('display','none');
-       
-      //添加小时天气预报到html     
-      if(!!data['HeWeather5']['0']['hourly_forecast'] && data['HeWeather5']['0']['hourly_forecast'].length !=0){
+       $('.cover').css('display','none');
+      //console.log(data);
+       //ip查询方式、部分地区 hours和suggest服务没有
+      
+       if(!!data['HeWeather5']['0']['hourly_forecast'] && data['HeWeather5']['0']['hourly_forecast'].length !=0){
         var lenHour=data['HeWeather5']['0']['hourly_forecast'].length;
+        
         $('.hourForecast').css('display','block');
-        for(var i=0;i<lenHour;i++){
-          var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
-          $('.hourForecast').append("<div class='row hourInfo'><p class='col-xs-2 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+
-          "</p><p class='col-xs-4 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><div class='col-xs-4 text-center pic'><img src='https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture+"'></div><p class='col-xs-2 text-center'>"+
-          +data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p>");
-        }
+       for(var i=0;i<lenHour;i++){
+        var hourlyPicture=weatherPicture(data['HeWeather5']['0']['hourly_forecast'][i]['cond']['code']);
+        $('.hourForecast').append("<div class='row hourInfo'><p class='col-xs-2 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['date'].slice(11)+
+      "</p><p class='col-xs-4 text-center'>"+data['HeWeather5']['0']['hourly_forecast'][i]['cond']['txt']+"</p><div class='col-xs-4 text-center pic'><img src='https://github.com/riversword/images/raw/master/weather/smallweatherIcons/"+hourlyPicture+"'></div><p class='col-xs-2 text-center'>"+
+      +data['HeWeather5']['0']['hourly_forecast'][i]['tmp']+"℃</p>");
+       }
       }
 
-      //添加天气建议信息到html
       if(!!data['HeWeather5']['0']['suggestion']){
-        $('.main').append("<div class='container-fluid suggest'><h4>Suggest</h4><p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p></div>");
+      $('.main').append("<div class='container-fluid suggest'><h4>Suggest</h4><p>"+data['HeWeather5']['0']['suggestion']['air']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['cw']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['drsg']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['sport']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['trav']['txt']+"</p><p>"+data['HeWeather5']['0']['suggestion']['uv']['txt']+"</p></div>");
       }
       
     },
@@ -137,8 +135,7 @@ function getWeather(keyWords){
     }
   });
 }
-
-//将经纬度数字保留两位小数
+//保留两位小数，处理经纬度
 function dealNum(x){
    var a=x.toString();
    var b=a.indexOf('.');
@@ -146,6 +143,5 @@ function dealNum(x){
     return a.slice(0,b+3);
    }else return x;
 }
-
 });
 
